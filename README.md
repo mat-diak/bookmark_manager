@@ -8,6 +8,9 @@ I would like to see a list of my bookmarks
 
 ## Domain Model
 
+![domain model](./bookmark_manager_1.png)
+
+```
 Client                Controller          Model             View
 -----------------------------------------------------------------------------
               ---->      app     -------->                                  |
@@ -19,3 +22,4 @@ Client                Controller          Model             View
               <-------                                      erb bookmarks   |
               response                      <--------------                 |
                                                 html                        |
+```
