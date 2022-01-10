@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'rspec'
 gem 'capybara'
+gem 'webrick'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
