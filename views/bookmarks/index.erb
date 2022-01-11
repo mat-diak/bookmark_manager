@@ -2,8 +2,11 @@
   <input name='page_address' type='text' placeholder='Your url'>
   <input type='submit' value='Add bookmark'>
 </form>
+
 <ul>
   <% @bookmarks.each do |bookmark| %>
     <li><%= bookmark %></li>
   <% end %>
 </ul>
+
+<%= @page_address %>
