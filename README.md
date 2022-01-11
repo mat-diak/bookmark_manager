@@ -2,9 +2,17 @@
 
 ## User Stories
 
+```
 As a browser user
 So that I can keep track of sites I want to revisit
 I would like to see a list of my bookmarks
+```
+
+```
+As a browser user
+So that I can revisit a website later
+I would like to save it as a bookmark
+```
 
 ## Domain Model
 

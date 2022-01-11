@@ -17,5 +17,12 @@ class BookmarkManager < Sinatra::Base
     erb :'bookmarks/index'
   end
 
+  post '/address' do
+    #we wanna save the address to the database
+
+    #we wanna go back to bookmarks
+    
+  end
+
   run! if app_file == $0
 end
