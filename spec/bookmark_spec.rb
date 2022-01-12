@@ -22,6 +22,7 @@ describe Bookmark do
   describe '.add'
     it 'adds a bookmark to the database' do
       Bookmark.add(url, title)
-      expect(Bookmark.all).to include(url, title)
+      
+      expect(Bookmark.all).to include(url)
     end
 end
