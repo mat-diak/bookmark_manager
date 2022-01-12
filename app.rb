@@ -5,9 +5,9 @@ require './lib/bookmark'
 class BookmarkManager < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
+    also_reload './lib/bookmark'
+    also_reload './lib/database'
   end
-
-  enable :sessions
 
   get '/' do
     'Bookmark Manager'
@@ -15,18 +15,11 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks' do
     @bookmarks = Bookmark.all
-
-    # get page address from post /address
-    @page_address = session[:page_address]
-
     erb :'bookmarks/index'
   end
 
-  post '/address' do
-    #we wanna save the address to the database
-    session[:page_address] = params[:page_address]
-
-    #we wanna go back to bookmarks
+  post '/bookmarks/add' do
+    Bookmark.add(params[:page_address])
     redirect '/bookmarks'
   end
 
