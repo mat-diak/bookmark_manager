@@ -13,9 +13,9 @@ describe Bookmark do
       
       bookmarks = Bookmark.all
       
-      expect(bookmarks).to include("http://www.makersacademy.com/")
-      expect(bookmarks).to include("http://www.destroyallsoftware.com/")
-      expect(bookmarks).to include("http://www.google.com/")
+      expect(bookmarks).to include("Makers Academy: http://www.makersacademy.com/")
+      expect(bookmarks).to include("Destroy all software: http://www.destroyallsoftware.com/")
+      expect(bookmarks).to include("google: http://www.google.com/")
     end
   end
 
@@ -23,6 +23,8 @@ describe Bookmark do
     it 'adds a bookmark to the database' do
       Bookmark.add(url, title)
       
-      expect(Bookmark.all).to include(url)
+      expect(Bookmark.all).to include("Test Title: http://www.youtube.com/")
+      #expected ["Test Title: http://www.youtube.com/"] to include "http://www.youtube.com/"
+      
     end
 end
