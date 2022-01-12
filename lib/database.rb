@@ -9,7 +9,7 @@ class Database
 
   def self.add(db_name, tb_name, url, title)
     @db_name = db_name
-    Database.connection.exec("INSERT INTO #{tb_name} (url, title) VALUES ('#{url}', '#{title}');")
+    Database.connection.exec("INSERT INTO #{tb_name} (url, title) VALUES ('#{url}', '#{title}') RETURNING id, url, title;")
   end
   
   def self.connection
