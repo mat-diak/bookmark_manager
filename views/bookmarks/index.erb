@@ -5,8 +5,12 @@
 </form>
 
 <ul>
-  <% @bookmarks.each do |bookmark| %>
-    <li><%= bookmark %></li>
+  <% @bookmarks.each do |bookmark_hash| %>
+    <%# our bookmark_hash is a hash  %>
+    <%# {:title=>"Test title", :url=>"google.com"} %>
+    <li><%= bookmark_hash[:title] %>: <%= bookmark_hash[:url]%></li>
+    <%# 'Title: google.com' %>
+    <%# <a href="google.com">link text</a> %>
   <% end %>
 </ul>
 
