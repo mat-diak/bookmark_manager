@@ -45,13 +45,21 @@ describe Bookmark do
       persisted_data = persisted_data(bookmark.id)
 
       expect(bookmark.id).to eq persisted_data['id']
-      expect(bookmark.title).to eq 'Test Title'
-      expect(bookmark.url).to eq 'http://www.youtube.com/'
+      expect(bookmark.title).to eq title
+      expect(bookmark.url).to eq url
 
       # we check if the bookmark is deleted
 
-      Bookmark.delete(bookmark.id)
+      deleted_bookmark = Bookmark.delete(bookmark.id)
+      persisted_data_for_delete = persisted_data(deleted_bookmark[0]['id'])
+
+      expect(persisted_data_for_delete).to eq nil
       expect(Bookmark.get_all).not_to include bookmark
+      expect(Bookmark.get_all.length).to eq 0 
+
+      expect(deleted_bookmark[0]['id']).to eq bookmark.id
+      expect(bookmark.title).to eq title
+      expect(bookmark.url).to eq url
     end
   end
 end

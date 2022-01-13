@@ -11,7 +11,7 @@ module Database
   end
 
   def self.delete(id)
-    Database.connect.exec_params("DELETE FROM bookmarks WHERE id = $1", [id])
+    Database.connect.exec_params("DELETE FROM bookmarks WHERE id = $1 RETURNING id, url, title;", [id])
   end
   
   def self.connect
