@@ -1,27 +1,38 @@
 require 'bookmark'
+require 'database_helpers'
 
 describe Bookmark do
   
   let(:url) { 'http://www.youtube.com/' }
   let(:title) { 'Test Title' }
   
-  describe '.all' do
+  describe '.get_all' do
     it 'returns all bookmarks' do
-      Bookmark.add("http://www.makersacademy.com/", 'Makers Academy')
+      bookmark = Bookmark.add("http://www.makersacademy.com/", 'Makers Academy')
       Bookmark.add("http://www.destroyallsoftware.com/", 'Destroy all software')
       Bookmark.add("http://www.google.com/", 'google')
       
-      bookmarks = Bookmark.all
+      bookmarks = Bookmark.get_all
       
-      expect(bookmarks).to include({:title => "Makers Academy", :url => "http://www.makersacademy.com/"})
-      expect(bookmarks).to include({:title => "Destroy all software", :url => "http://www.destroyallsoftware.com/"})
-      expect(bookmarks).to include({:title => "google", :url => "http://www.google.com/"})
+      expect(bookmarks.length).to eq 3
+      expect(bookmarks.first).to be_a Bookmark
+      expect(bookmarks.first.id).to eq bookmark.id
+      expect(bookmarks.first.title).to eq 'Makers Academy' 
+      expect(bookmarks.first.url).to eq 'http://www.makersacademy.com/'
     end
   end
 
   describe '.add'
     it 'adds a bookmark to the database' do
-      Bookmark.add(url, title)
-      expect(Bookmark.all).to include({title: title, url: url})
+      # we setup the .add method to return value from the database
+      # we get: {"id"=>"some_id", "url"=>"http://www.youtube.com/", "'Test Title'"} 
+      bookmark = Bookmark.add(url, title)
+      persisted_data = persisted_data(bookmark.id)
+      # expect(Bookmark.get_all).to include({title: title, url: url})
+      # we wanna check if the return value from inserting into the database is the same as insterted value
+      # expect(bookmark.id).to eq persisted_data('id')
+      expect(bookmark.id).to eq persisted_data['id']
+      expect(bookmark.title).to eq 'Test Title'
+      expect(bookmark.url).to eq 'http://www.youtube.com/'
     end
 end
