@@ -62,4 +62,36 @@ describe Bookmark do
       expect(bookmark.url).to eq url
     end
   end
+
+  describe '.update_title' do
+    it 'updates the title' do
+      # check if the bookmark is correctly added
+      bookmark = Bookmark.add(url, title)
+      persisted_data = persisted_data(bookmark.id)
+  
+      expect(bookmark.id).to eq persisted_data['id']
+      expect(bookmark.title).to eq title
+      expect(bookmark.url).to eq url
+  
+      # check if title is updated
+  
+      updated_bookmark = Bookmark.update_title(id: bookmark.id, title: 'Newest Title')
+      persisted_data_from_update = persisted_data(bookmark.id)
+  
+      expect(bookmark.id).to eq persisted_data_from_update['id']
+      expect(updated_bookmark.id).to eq persisted_data_from_update['id']
+      expect(updated_bookmark.title).to eq 'Newest Title'
+      expect(updated_bookmark.url).to eq url
+    end
+  end
+
+  describe '.find_by_id' do
+    it 'finds a book' do
+      bookmark = Bookmark.add(url, title)
+      persisted_data = persisted_data(bookmark.id)
+
+      expect(Bookmark.find_by_id(bookmark.id)).to be_a Bookmark
+      expect(Bookmark.find_by_id(bookmark.id)).to have_attributes(id: bookmark.id, url: url, title: title)
+    end
+  end
 end

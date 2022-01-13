@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/bookmark'
+require 'pg'
 
 class BookmarkManager < Sinatra::Base
   configure :development do
@@ -20,17 +21,27 @@ class BookmarkManager < Sinatra::Base
     erb :'bookmarks/index'
   end
 
+  get '/bookmarks/:id/edit' do
+    @bookmark = Bookmark.find_by_id(params['id'])
+    p 'HERE', @bookmark
+    p 'params from edit: ', params
+    erb :'bookmarks/edit'
+  end
+
   post '/bookmarks/add' do
     Bookmark.add(params[:page_address], params[:title])
     redirect '/bookmarks'
   end
 
   delete '/bookmarks/:id' do
-    # we need to delete the bookmark here
-    # connection = PG.connect(dbname: 'bookmark_manager_test')
-    # connection.exec_params("DELETE FROM bookmarks WHERE id = $1", [params[:id]])
     Bookmark.delete(params[:id])
     redirect 'bookmarks'
+  end
+  
+  patch '/bookmarks/:id' do
+    p params
+    Bookmark.update_title(id: params['id'], title: params['title'])
+    redirect "/bookmarks/#{params['id']}/edit"
   end
 
   run! if app_file == $0

@@ -2,6 +2,10 @@ require 'pg'
 
 module Database
 
+  def self.find_by_id(id)
+    Database.connect.exec_params("SELECT * FROM bookmarks WHERE id = $1", [id])
+  end
+
   def self.select_all
     Database.connect.exec_params"SELECT * FROM bookmarks;"
   end
@@ -12,6 +16,10 @@ module Database
 
   def self.delete(id)
     Database.connect.exec_params("DELETE FROM bookmarks WHERE id = $1 RETURNING id, url, title;", [id])
+  end
+
+  def self.update_title(id, title)
+    Database.connect.exec_params("UPDATE bookmarks SET title = $1 WHERE id = $2 RETURNING id, url, title;", [title, id])
   end
   
   def self.connect
