@@ -3,11 +3,11 @@ require 'pg'
 module Database
 
   def self.select_all
-    Database.connect.exec "SELECT * FROM bookmarks;"
+    Database.connect.exec_params"SELECT * FROM bookmarks;"
   end
 
   def self.add(url, title)
-    Database.connect.exec("INSERT INTO bookmarks (url, title) VALUES ('#{url}', '#{title}') RETURNING id, url, title;")
+    Database.connect.exec_params("INSERT INTO bookmarks (url, title) VALUES ($1, $2) RETURNING id, url, title;", [url, title])
   end
   
   def self.connect
