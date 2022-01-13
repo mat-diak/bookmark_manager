@@ -22,7 +22,7 @@ describe Bookmark do
     end
   end
 
-  describe '.add'
+  describe '.add' do
     it 'adds a bookmark to the database' do
       # we setup the .add method to return value from the database
       # we get: {"id"=>"some_id", "url"=>"http://www.youtube.com/", "'Test Title'"} 
@@ -35,4 +35,23 @@ describe Bookmark do
       expect(bookmark.title).to eq 'Test Title'
       expect(bookmark.url).to eq 'http://www.youtube.com/'
     end
+  end
+
+  describe '.delete' do
+    it 'deletes a bookmark' do
+      # we check if the bookmark was correctly added to the database
+      
+      bookmark = Bookmark.add(url, title)
+      persisted_data = persisted_data(bookmark.id)
+
+      expect(bookmark.id).to eq persisted_data['id']
+      expect(bookmark.title).to eq 'Test Title'
+      expect(bookmark.url).to eq 'http://www.youtube.com/'
+
+      # we check if the bookmark is deleted
+
+      Bookmark.delete(bookmark.id)
+      expect(Bookmark.get_all).not_to include bookmark
+    end
+  end
 end

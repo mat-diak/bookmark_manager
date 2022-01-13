@@ -9,6 +9,8 @@ class BookmarkManager < Sinatra::Base
     also_reload './lib/database'
   end
 
+  enable :sessions, :method_override
+
   get '/' do
     erb :index
   end
@@ -21,6 +23,14 @@ class BookmarkManager < Sinatra::Base
   post '/bookmarks/add' do
     Bookmark.add(params[:page_address], params[:title])
     redirect '/bookmarks'
+  end
+
+  delete '/bookmarks/:id' do
+    # we need to delete the bookmark here
+    # connection = PG.connect(dbname: 'bookmark_manager_test')
+    # connection.exec_params("DELETE FROM bookmarks WHERE id = $1", [params[:id]])
+    Bookmark.delete(params[:id])
+    redirect 'bookmarks'
   end
 
   run! if app_file == $0

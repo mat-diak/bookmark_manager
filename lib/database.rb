@@ -9,6 +9,10 @@ module Database
   def self.add(url, title)
     Database.connect.exec_params("INSERT INTO bookmarks (url, title) VALUES ($1, $2) RETURNING id, url, title;", [url, title])
   end
+
+  def self.delete(id)
+    Database.connect.exec_params("DELETE FROM bookmarks WHERE id = $1", [id])
+  end
   
   def self.connect
     if ENV['ENVIRONMENT'] == 'test'
@@ -18,3 +22,4 @@ module Database
     end  
   end
 end
+

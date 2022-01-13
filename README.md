@@ -14,6 +14,12 @@ So that I can revisit a website later
 I would like to save it as a bookmark
 ```
 
+```
+As a user
+So that I can get keep my bookmarks organised
+I would like to be able to delete a bookmark
+```
+
 ## Domain Model
 
 ![domain model](./bookmark_manager_1.png)

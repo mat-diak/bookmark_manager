@@ -13,6 +13,10 @@ class Bookmark
     Bookmark.new(persisted_data[0]['id'], persisted_data[0]['url'], persisted_data[0]['title'])
   end
 
+  def self.delete(id)
+    Database.delete(id)
+  end
+
   attr_reader :id, :title, :url
 
   def initialize id, url, title
@@ -21,3 +25,5 @@ class Bookmark
     @title = title
   end
 end
+
+# I would like to be able to delete a bookmark
