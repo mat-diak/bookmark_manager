@@ -1,7 +1,6 @@
 require './lib/database'
 
 class Bookmark
-  DB_NAME, TB_NAME = 'bookmark_manager', 'bookmarks'
   include Database
 
   def self.get_all
@@ -10,16 +9,8 @@ class Bookmark
   end
   
   def self.add(url, title)
-    feedback = Database.add(url, title)
-    Bookmark.new(feedback[0]['id'], feedback[0]['url'], feedback[0]['title'])
-  end
-  
-  def self.db_name
-    'bookmark_manager'
-  end
-  
-  def self.tb_name
-    'bookmarks'
+    persisted_data = Database.add(url, title)
+    Bookmark.new(persisted_data[0]['id'], persisted_data[0]['url'], persisted_data[0]['title'])
   end
 
   attr_reader :id, :title, :url
