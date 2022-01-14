@@ -35,5 +35,3 @@ class Bookmark
     @title = title
   end
 end
-
-# I would like to be able to delete a bookmark

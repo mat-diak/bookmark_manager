@@ -7,16 +7,19 @@
 <ol>
   <% @bookmarks.each do |bookmark| %>
     <li class="bookmark" id="bookmark-<%= bookmark.id %>">
+      <!-- Book title and url -->
       <h4><%= bookmark.title %></h4>
       <a href=<%= bookmark.url %> target="_blank" ><%= bookmark.url %></a> 
       
+      <!-- Delete button for each bookmark -->
       <form action="/bookmarks/<%= bookmark.id %>" method="post">
         <input type="hidden" name='_method' value='DELETE'>
         <input type='submit' value='Delete'>
       </form>
       
+      <!-- Edit button for each bookmark -->
       <form action="bookmarks/<%= bookmark.id %>/edit" method="get">
-        <input type='submit' value='Update'>
+        <input type='submit' value='Edit'>
       </form>
     </li>  
   <% end %>

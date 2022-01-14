@@ -74,7 +74,6 @@ describe Bookmark do
       expect(bookmark.url).to eq url
   
       # check if title is updated
-  
       updated_bookmark = Bookmark.update_title(id: bookmark.id, title: 'Newest Title')
       persisted_data_from_update = persisted_data(bookmark.id)
   

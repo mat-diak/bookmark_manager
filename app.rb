@@ -23,8 +23,6 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks/:id/edit' do
     @bookmark = Bookmark.find_by_id(params['id'])
-    p 'HERE', @bookmark
-    p 'params from edit: ', params
     erb :'bookmarks/edit'
   end
 
@@ -39,7 +37,6 @@ class BookmarkManager < Sinatra::Base
   end
   
   patch '/bookmarks/:id' do
-    p params
     Bookmark.update_title(id: params['id'], title: params['title'])
     redirect "/bookmarks/#{params['id']}/edit"
   end
